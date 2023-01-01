@@ -13,6 +13,7 @@ namespace winrt
     using namespace Windows::System;
     using namespace Windows::UI;
     using namespace Windows::UI::Composition;
+
 }
 
 namespace util
@@ -46,6 +47,8 @@ CaptureSnapshot::TakeAsync(winrt::IDirect3DDevice const& device, winrt::Graphics
     framePool.FrameArrived([&frame, captureEvent](auto& framePool, auto&)
     {
         frame = framePool.TryGetNextFrame();
+
+
 
         // Complete the operation
         captureEvent.SetEvent();

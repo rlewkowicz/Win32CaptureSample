@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "App.h"
 #include "CaptureSnapshot.h"
+#include <mutex>
+
+std::mutex frame_mutex;
+int id = 0;
+int current = 1;
 
 namespace winrt
 {
@@ -53,6 +58,11 @@ App::App(winrt::ContainerVisual root, winrt::GraphicsCapturePicker capturePicker
     auto d3dDevice = util::CreateD3DDevice();
     auto dxgiDevice = d3dDevice.as<IDXGIDevice>();
     m_device = CreateDirect3DDevice(dxgiDevice.get());
+    m_device1 = CreateDirect3DDevice(dxgiDevice.get());
+    m_device2 = CreateDirect3DDevice(dxgiDevice.get());
+    m_device3 = CreateDirect3DDevice(dxgiDevice.get());
+    m_device4 = CreateDirect3DDevice(dxgiDevice.get());
+    m_device5 = CreateDirect3DDevice(dxgiDevice.get());
 }
 
 winrt::GraphicsCaptureItem App::TryStartCaptureFromWindowHandle(HWND hwnd)
@@ -196,12 +206,14 @@ winrt::IAsyncOperation<winrt::StorageFile> App::TakeSnapshotAsync()
 
 void App::StartCaptureFromItem(winrt::GraphicsCaptureItem item)
 {
-    m_capture = std::make_unique<SimpleCapture>(m_device, item, m_pixelFormat);
+    m_capture = std::make_unique<SimpleCapture>(m_device, item, m_pixelFormat, m_device1, m_device2, frame_mutex, id, current);
+    //m_capture1 = std::make_unique<SimpleCapture>(m_device3, item, m_pixelFormat, m_device4, m_device5, frame_mutex, id, current);
 
     auto surface = m_capture->CreateSurface(m_compositor);
     m_brush.Surface(surface);
 
     m_capture->StartCapture();
+    //m_capture1->StartCapture();
 }
 
 void App::StopCapture()

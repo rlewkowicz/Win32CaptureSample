@@ -37,6 +37,13 @@ private:
     winrt::Windows::Storage::Pickers::FileSavePicker m_savePicker{ nullptr };
 
     winrt::Windows::Graphics::DirectX::Direct3D11::IDirect3DDevice m_device{ nullptr };
+    winrt::Windows::Graphics::DirectX::Direct3D11::IDirect3DDevice m_device1{ nullptr };
+    winrt::Windows::Graphics::DirectX::Direct3D11::IDirect3DDevice m_device2{ nullptr };
+    winrt::Windows::Graphics::DirectX::Direct3D11::IDirect3DDevice m_device3{ nullptr };
+    winrt::Windows::Graphics::DirectX::Direct3D11::IDirect3DDevice m_device4{ nullptr };
+    winrt::Windows::Graphics::DirectX::Direct3D11::IDirect3DDevice m_device5{ nullptr };
+
     std::unique_ptr<SimpleCapture> m_capture{ nullptr };
+    std::unique_ptr<SimpleCapture> m_capture1{ nullptr };
     winrt::Windows::Graphics::DirectX::DirectXPixelFormat m_pixelFormat = winrt::Windows::Graphics::DirectX::DirectXPixelFormat::B8G8R8A8UIntNormalized;
 };
